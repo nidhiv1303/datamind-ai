@@ -23,6 +23,17 @@ def make_charts(df: pd.DataFrame) -> dict:
     Returns base64-encoded PNG images.
     """
     charts = []
+    # Drop datetime columns before charting
+    df = df.copy()
+    for col in df.columns:
+        if pd.api.types.is_datetime64_any_dtype(df[col]):
+            df = df.drop(columns=[col])
+        try:
+            pd.to_datetime(df[col], infer_datetime_format=True)
+            if df[col].dtype == object:
+                df = df.drop(columns=[col])
+        except Exception:
+            pass
     numeric_df = df.select_dtypes(include=["number"])
     cat_df = df.select_dtypes(include=["object"])
 
