@@ -205,7 +205,19 @@ if uploaded_file is None:
 
 @st.cache_data
 def load_file(file):
-    return pd.read_csv(file) if file.name.endswith(".csv") else pd.read_excel(file)
+    if file.name.endswith(".csv"):
+        # try different encodings
+        for encoding in ["utf-8", "latin-1", "cp1252", "iso-8859-1"]:
+            try:
+                file.seek(0)
+                return pd.read_csv(file, encoding=encoding)
+            except (UnicodeDecodeError, Exception):
+                continue
+        # last resort
+        file.seek(0)
+        return pd.read_csv(file, encoding="latin-1", errors="ignore")
+    else:
+        return pd.read_excel(file)
 
 try:
     df_raw = load_file(uploaded_file)
