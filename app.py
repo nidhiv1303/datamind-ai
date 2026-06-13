@@ -633,28 +633,28 @@ if st.session_state.analysis_done:
                 st.dataframe(pd.DataFrame(eda["high_correlations"]), use_container_width=True)
 
     # ── TAB 6: CHARTS ──────────────────────────────────────────────────────────
-with tab6:
-    st.markdown("#### 📈 Charts")
-    if "charts" not in results:
-        st.warning("No charts key in results")
-    elif not results["charts"]:
-        st.warning("Charts result is empty")
-    elif "charts" not in results["charts"]:
-        st.warning(f"Charts dict keys: {list(results['charts'].keys())}")
-    elif not results["charts"]["charts"]:
-        st.warning(f"Charts list is empty. Chart count: {results['charts'].get('chart_count', '?')}")
-    else:
-        charts = results["charts"]["charts"]
-        st.success(f"Found {len(charts)} charts")
-        cols2 = st.columns(2)
-        for i, chart in enumerate(charts):
-            with cols2[i % 2]:
-                st.markdown(f"**{chart['title']}**")
-                try:
-                    img_bytes = base64.b64decode(chart["image_base64"])
-                    st.image(img_bytes, width="stretch")
-                except Exception as e:
-                    st.error(f"Chart render error: {e}")
+    with tab6:
+        st.markdown("#### 📈 Charts")
+        if "charts" not in results:
+            st.warning("No charts key in results")
+        elif not results["charts"]:
+            st.warning("Charts result is empty")
+        elif "charts" not in results["charts"]:
+            st.warning(f"Charts dict keys: {list(results['charts'].keys())}")
+        elif not results["charts"]["charts"]:
+            st.warning(f"Charts list is empty. Chart count: {results['charts'].get('chart_count', '?')}")
+        else:
+            charts = results["charts"]["charts"]
+            st.success(f"Found {len(charts)} charts")
+            cols2 = st.columns(2)
+            for i, chart in enumerate(charts):
+                with cols2[i % 2]:
+                    st.markdown(f"**{chart['title']}**")
+                    try:
+                        img_bytes = base64.b64decode(chart["image_base64"])
+                        st.image(img_bytes, width="stretch")
+                    except Exception as e:
+                        st.error(f"Chart render error: {e}")
     # ── TAB 8: DOWNLOAD ────────────────────────────────────────────────────────
     with tab8:
         st.markdown("#### Download Full HTML Report")
