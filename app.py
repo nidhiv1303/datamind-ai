@@ -652,7 +652,7 @@ if st.session_state.analysis_done:
                     st.markdown(f"**{chart['title']}**")
                     try:
                         img_bytes = base64.b64decode(chart["image_base64"])
-                        st.image(img_bytes, width="stretch")
+                        st.image(base64.b64decode(chart["image_base64"]), width="stretch")
                     except Exception as e:
                         st.error(f"Chart render error: {e}")
     # ── TAB 8: DOWNLOAD ────────────────────────────────────────────────────────
