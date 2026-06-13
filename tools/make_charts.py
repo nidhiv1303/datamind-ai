@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import base64
-from io import BytesIO
+import io
 
 def _fig_to_base64(fig) -> str:
-    buf = BytesIO()
+    buf = io.BytesIO()
     fig.savefig(buf, format="png", bbox_inches="tight", dpi=100)
     buf.seek(0)
     encoded = base64.b64encode(buf.read()).decode("utf-8")
