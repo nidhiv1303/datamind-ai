@@ -1,12 +1,12 @@
-import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
+
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import base64
 from io import BytesIO
-
 
 def _fig_to_base64(fig) -> str:
     buf = BytesIO()
@@ -81,3 +81,4 @@ def make_charts(df: pd.DataFrame) -> dict:
         })
 
     return {"charts": charts, "chart_count": len(charts), "status": "success"}
+
