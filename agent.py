@@ -11,6 +11,11 @@ from tools.make_charts import make_charts
 
 load_dotenv()
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+try:
+    import streamlit as st
+    os.environ["HF_TOKEN"] = st.secrets.get("HF_TOKEN", os.getenv("HF_TOKEN", ""))
+except Exception:
+    pass
 
 # ── Tool definitions for Hugging Face (OpenAI compatible schema) ──────────────
 
